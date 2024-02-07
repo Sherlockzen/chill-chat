@@ -1,8 +1,12 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-    experimental: {
-        serverComponentsExternalPackages: ["libsql"],
-    },
+  experimental: {
+    serverComponentsExternalPackages: ["libsql"]
+  },
+  webpack: (config) => {
+    config.externals.push("@node-rs/argon2", "@node-rs/bcrypt");
+    return config;
+  }
 };
 
 export default nextConfig;

@@ -1,24 +1,27 @@
-import type { NextAuthConfig } from "next-auth";
-import { UpstashRedisAdapter } from "@auth/upstash-redis-adapter"
-import db from "./db/db";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-import NextAuth from "next-auth";
+import { Lucia } from "lucia";
+import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
+import { createClient } from "@libsql/client";
 
-export const authConfig = {
-  adapter: UpstashRedisAdapter(db),
-  pages: {
-    signIn: '/login',
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  // authToken: process.env.TURSO_AUTH_TOKEN!,
+});
+const adapter = new LibSQLAdapter(client, {
+  user: "userTable",
+  session: "sessionTable",
+});
+
+export const lucia = new Lucia(adapter, {
+  sessionCookie: {
+    expires: false,
+    attributes: {
+      secure: process.env.NODE_ENV === "production",
+    },
   },
-  providers: [
-    GoogleProvider,
-    GithubProvider
-  ],
-} satisfies NextAuthConfig;
+});
 
-export const {
-  handlers,
-  auth,
-  signIn,
-  signOut,
-} = NextAuth(authConfig)
+declare module "lucia" {
+  interface Register {
+    Lucia: typeof lucia;
+  }
+}
