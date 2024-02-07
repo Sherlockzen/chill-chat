@@ -1,8 +1,13 @@
-import { Redis } from '@upstash/redis'
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+import * as schema from './schema'
 
-const db = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-})
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  // authToken: process.env.TURSO_AUTH_TOKEN!,
+});
+const db = drizzle(client, {
+  schema,
+});
 
-export default db;  
+export default db;
