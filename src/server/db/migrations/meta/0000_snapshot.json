@@ -1,0 +1,118 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "844d1513-e3bf-42cc-b23c-3b3f71d31b98",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "sessionTable": {
+      "name": "sessionTable",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sessionTable_user_id_userTable_id_fk": {
+          "name": "sessionTable_user_id_userTable_id_fk",
+          "tableFrom": "sessionTable",
+          "tableTo": "userTable",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "userTable": {
+      "name": "userTable",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "githubId": {
+          "name": "githubId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "userTable_id_unique": {
+          "name": "userTable_id_unique",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        },
+        "userTable_email_unique": {
+          "name": "userTable_email_unique",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        },
+        "userTable_githubId_unique": {
+          "name": "userTable_githubId_unique",
+          "columns": [
+            "githubId"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
