@@ -36,7 +36,7 @@ export async function GET(request: Request): Promise<Response> {
       .from(userTable)
       .where(eq(userTable.githubId, Number(githubUser.id)));
 
-    if (existingUser) {
+    if (existingUser.length > 0) {
       const session = await lucia.createSession(existingUser[0].id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
       cookies().set(
@@ -51,7 +51,6 @@ export async function GET(request: Request): Promise<Response> {
         },
       });
     }
-
     const userId = generateId(15);
     await db.insert(userTable).values({
       id: userId,
