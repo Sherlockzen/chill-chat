@@ -8,6 +8,7 @@ export const userTable = sqliteTable("userTable", {
   id: text("id").notNull().primaryKey().unique(),
   email: text("email").notNull().unique(),
   githubId: integer("githubId").unique(),
+  googleId: integer("googleId").unique(),
   username: text("username"),
 });
 
