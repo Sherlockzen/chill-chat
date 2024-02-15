@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import Signin from "@/components/signin";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 async function Page() {
   // const { providers } = authConfig;
@@ -28,7 +30,18 @@ async function Page() {
         </CardHeader>
         <CardContent>
           {/*<Signin />*/}
-          <Link href={"/login/github"}>Sign in with GitHub</Link>
+          <Link
+            className={cn(
+              buttonVariants({
+                variant: "default",
+                size: "lg",
+              }),
+              `w-full`,
+            )}
+            href={"/login/github"}
+          >
+            Entre com o Github
+          </Link>
         </CardContent>
       </Card>
     </main>
