@@ -1,5 +1,4 @@
 import React from "react";
-// import { auth, authConfig } from "@/server/auth";
 import { redirect } from "next/navigation";
 import {
   Card,
@@ -15,10 +14,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
 async function Page() {
-  // const { providers } = authConfig;
-  // const session = await auth();
-
-  // if (!session)
   return (
     <main className=" flex justify-center items-center h-svh w-svw">
       <Card className="w-[350px]">
@@ -28,7 +23,7 @@ async function Page() {
             Autentique-se com o Google ou Github.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className=" flex flex-col gap-6">
           {/*<Signin />*/}
           <Link
             className={cn(
@@ -41,6 +36,18 @@ async function Page() {
             href={"/login/github"}
           >
             Entre com o Github
+          </Link>
+          <Link
+            className={cn(
+              buttonVariants({
+                variant: "default",
+                size: "lg",
+              }),
+              `w-full`,
+            )}
+            href={"/login/google"}
+          >
+            Entre com o Google
           </Link>
         </CardContent>
       </Card>
