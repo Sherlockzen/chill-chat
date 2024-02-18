@@ -12,8 +12,8 @@ export const github = new GitHub(
 );
 
 export const google = new Google(
-  process.env.GOOGLE_CLIENT_ID!,
-  process.env.GOOGLE_CLIENT_SECRET!,
+  process.env.AUTH_GOOGLE_ID!,
+  process.env.AUTH_GOOGLE_SECRET!,
   "http://localhost:3000/login/google/callback"
 );
 
@@ -81,7 +81,7 @@ export const validateRequest = cache(
           sessionCookie.attributes,
         );
       }
-    } catch {}
+    } catch { }
     return result;
   },
 );
